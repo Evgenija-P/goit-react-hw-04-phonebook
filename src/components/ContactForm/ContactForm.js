@@ -6,32 +6,22 @@ import { AiOutlineUserAdd } from 'react-icons/ai';
 
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
-// const DEFAULT_STATE = {
-//   name: '',
-//   number: '',
-// };
-
-export const ContactForm = () => {
+export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  // const contact = [name, number];
-
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setName(e.target.name);
-    setNumber(number);
-    console.log(name);
-
-    // setName({ [name]: value });
-
-    // this.setState({ [name]: value });
+  const handleChangeName = e => {
+    setName(e.target.value);
   };
 
-  const handleSubmit = (e, { onSubmit }) => {
+  const handleChangeNumber = e => {
+    setNumber(e.target.value);
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
 
-    onSubmit(name, number);
+    onSubmit({ name, number });
     reset();
   };
 
@@ -55,7 +45,7 @@ export const ContactForm = () => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          onChange={handleChange}
+          onChange={handleChangeName}
         />
         <Label htmlFor={numberId}>Number</Label>
         <Input
@@ -67,7 +57,7 @@ export const ContactForm = () => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          onChange={handleChange}
+          onChange={handleChangeNumber}
         />
         <Button type="submit">
           <AiOutlineUserAdd size={24} color={'blue'} />
